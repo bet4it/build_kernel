@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Build
-        uses: dabao1955/kernel_build_action@main
+        uses: Eric-Du-BH/kernel_build_action@main
         with:
           kernel-url: https://github.com/PixelExperience-Devices/kernel_oneplus_msm8998
           kernel-branch: eleven
