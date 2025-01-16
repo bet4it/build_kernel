@@ -1,7 +1,7 @@
 name: CI
 
 on:
-  workflow_dispatch:
+  push:
 
 jobs:
   build-kernel:
@@ -10,8 +10,8 @@ jobs:
     steps:
       - name: 'Install u-boot-tools'
         run: |
-          apt update
-          apt install -y u-boot-tools
+          "$SU" apt update
+          "$SU" apt install -y u-boot-tools
       - name: Build
         uses: dabao1955/kernel_build_action@main
         with:
