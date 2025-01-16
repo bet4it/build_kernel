@@ -19,5 +19,7 @@ jobs:
           kernel-branch: orange-pi-5.10-rk3588
           config: rockchip_linux_defconfig
           arch: arm64
+          ccache: true
           other-gcc64-url: https://sources.buildroot.net/toolchain-external-arm-aarch64/gcc-arm-11.2-2022.02-x86_64-aarch64-none-linux-gnu.tar.xz
           other-gcc32-url: https://github.com/armbian/mirror/releases/download/_toolchain/gcc-arm-11.2-2022.02-x86_64-arm-none-linux-gnueabihf.tar.xz
+          extra-cmd: CROSS_COMPILE=aarch64-none-linux-gnu-
