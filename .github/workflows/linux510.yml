@@ -10,8 +10,8 @@ jobs:
     steps:
       - name: 'Install u-boot-tools'
         run: |
-          "$SU" apt update
-          "$SU" apt install -y u-boot-tools
+          sudo apt update
+          sudo apt install -y u-boot-tools
       - name: Build
         uses: dabao1955/kernel_build_action@main
         with:
