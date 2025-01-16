@@ -1,0 +1,18 @@
+name: CI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-kernel:
+    name: Build Kernel
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Build
+        uses: dabao1955/kernel_build_action@main
+        with:
+          kernel-url: https://github.com/orangepi-xunlong/linux-orangepi
+          kernel-branch: orange-pi-5.10-rk3588
+          config: rockchip_linux_defconfig
+          arch: arm64
+          other-gcc64-url: https://sources.buildroot.net/toolchain-external-arm-aarch64/gcc-arm-11.2-2022.02-x86_64-aarch64-none-linux-gnu.tar.xz
