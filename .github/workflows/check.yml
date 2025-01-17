@@ -26,7 +26,7 @@ jobs:
 
       - name: 'Clone Kernel Source'
         run: |
-          git clone --recursive https://github.com/bet4it/linux-orangepi -b orange-pi-5.10-rk3588 kernel
+          git clone --depth=1 --recursive https://github.com/bet4it/linux-orangepi -b orange-pi-5.10-rk3588 kernel
 
       - name: 'Build Kernel'
         run: |
