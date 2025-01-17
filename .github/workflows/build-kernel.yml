@@ -24,7 +24,7 @@ jobs:
 
       - name: Clone linux-orangepi repository
         run: |
-          git clone -b orange-pi-5.10-rk3588--depth=1 https://github.com/bet4it/linux-orangepi.git
+          git clone -b orange-pi-5.10-rk3588 --depth=1 https://github.com/bet4it/linux-orangepi.git
 
       - name: Build the kernel
         run: |
