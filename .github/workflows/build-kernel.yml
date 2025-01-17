@@ -1,0 +1,41 @@
+name: Build Kernel
+
+on:
+  push:
+
+jobs:
+  build-kernel:
+    runs-on: ubuntu-20.04  # Use Ubuntu 20.04 as the runner
+
+    steps:
+      - name: Checkout this repository
+        uses: actions/checkout@v3  # Checkout the current repository
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential libncurses-dev bison flex libssl-dev libelf-dev wget git u-boot-tools
+
+      - name: Download and extract ARM toolchain
+        run: |
+          wget https://sources.buildroot.net/toolchain-external-arm-aarch64/gcc-arm-11.2-2022.02-x86_64-aarch64-none-linux-gnu.tar.xz
+          tar -xf gcc-arm-11.2-2022.02-x86_64-aarch64-none-linux-gnu.tar.xz
+          echo "$(pwd)/gcc-arm-11.2-2022.02-x86_64-aarch64-none-linux-gnu/bin" >> $GITHUB_PATH
+
+      - name: Clone linux-orangepi repository
+        run: |
+          git clone https://github.com/bet4it/linux-orangepi
+          cd linux-orangepi
+          git checkout orange-pi-5.10-rk3588
+
+      - name: Build the kernel
+        run: |
+          cd linux-orangepi
+          make ARCH=arm64 LOCALVERSION=-opensources-rk3588 CROSS_COMPILE=aarch64-none-linux-gnu- linux_opsrc_rk3588_defconfig
+          make ARCH=arm64 LOCALVERSION=-opensources-rk3588 CROSS_COMPILE=aarch64-none-linux-gnu- Image -j$(nproc)
+
+      - name: Upload Image as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: kernel-image
+          path: linux-orangepi/arch/arm64/boot/Image
