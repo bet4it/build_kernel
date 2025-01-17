@@ -24,7 +24,7 @@ jobs:
 
       - name: Clone linux-orangepi repository
         run: |
-          git clone https://github.com/bet4it/linux-orangepi
+          git clone --depth=1 https://github.com/bet4it/linux-orangepi.git
           cd linux-orangepi
           git checkout orange-pi-5.10-rk3588
 
