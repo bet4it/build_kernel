@@ -29,7 +29,7 @@ jobs:
       - name: Build the kernel
         run: |
           cd linux-orangepi
-          make ARCH=arm64 LOCALVERSION=-opensources-rk3588 CROSS_COMPILE=aarch64-none-linux-gnu- linux_opsrc_rk3588_defconfig
+          make ARCH=arm64 LOCALVERSION=-opensources-rk3588 CROSS_COMPILE=aarch64-none-linux-gnu- rk3588_ulan_defconfig
           make ARCH=arm64 LOCALVERSION=-opensources-rk3588 CROSS_COMPILE=aarch64-none-linux-gnu- Image -j$(nproc)
 
       - name: Upload Image as artifact
