@@ -20,11 +20,9 @@ jobs:
 
       - name: 'Download GCC Toolchains'
         run: |
-          mkdir -p $HOME/gcc-64 $HOME/gcc-32
+          mkdir -p $HOME/gcc-64
           aria2c -o gcc-aarch64.tar.xz https://sources.buildroot.net/toolchain-external-arm-aarch64/gcc-arm-11.2-2022.02-x86_64-aarch64-none-linux-gnu.tar.xz
           tar -C $HOME/gcc-64 --strip-components=1 -xf gcc-aarch64.tar.xz
-          aria2c -o gcc-arm.tar.xz https://github.com/armbian/mirror/releases/download/_toolchain/gcc-arm-11.2-2022.02-x86_64-arm-none-linux-gnueabihf.tar.xz
-          tar -C $HOME/gcc-32 --strip-components=1 -xf gcc-arm.tar.xz
 
       - name: 'Clone Kernel Source'
         run: |
@@ -33,10 +31,9 @@ jobs:
       - name: 'Build Kernel'
         run: |
           cd kernel
-          mkdir out -p -v
-          export PATH=$HOME/gcc-64/bin:$HOME/gcc-32/bin:$PATH
-          make linux_opsrc_rk3588_defconfig ARCH=arm64 O=out
-          make -j$(nproc --all) ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- Image O=out
+          export PATH=$HOME/gcc-64/bin
+          make ARCH=arm64 linux_opsrc_rk3588_defconfig
+          make -j$(nproc --all) ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- Image
 
       - name: 'Upload Artifacts'
         uses: actions/upload-artifact@v4
