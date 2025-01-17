@@ -1,4 +1,4 @@
-name: CI
+name: Check
 
 on:
   workflow_dispatch:
@@ -44,11 +44,9 @@ jobs:
         run: |
           cd kernel
           mkdir out -p -v
-          COMMAND="make -j$(nproc --all) linux_opsrc_rk3588_defconfig ARCH=arm64 all O=out"
-          COMMAND+=" PATH=$HOME/gcc-64/bin:$HOME/gcc-32/bin:$PATH"
-          COMMAND+=" CROSS_COMPILE=aarch64-none-linux-gnu- CROSS_COMPILE_ARM32=arm-none-linux-gnueabihf-"
-          echo "using command: ${COMMAND}"
-          eval ${COMMAND}
+          export PATH=$HOME/gcc-64/bin:$HOME/gcc-32/bin:$PATH
+          make -j$(nproc --all) linux_opsrc_rk3588_defconfig ARCH=arm64 all O=out
+          make -j$(nproc --all) linux_opsrc_rk3588_defconfig ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- CROSS_COMPILE_ARM32=arm-none-linux-gnueabihf- all O=out
 
       - name: 'Upload Artifacts'
         uses: actions/upload-artifact@v4
