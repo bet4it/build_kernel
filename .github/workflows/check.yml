@@ -1,7 +1,7 @@
 name: Check
 
 on:
-  workflow_dispatch:
+  push:
 
 jobs:
   build-kernel:
@@ -31,7 +31,7 @@ jobs:
       - name: 'Build Kernel'
         run: |
           cd kernel
-          export PATH=$HOME/gcc-64/bin
+          export PATH=$HOME/gcc-64/bin:$PATH
           make ARCH=arm64 linux_opsrc_rk3588_defconfig
           make -j$(nproc --all) ARCH=arm64 CROSS_COMPILE=aarch64-none-linux-gnu- Image
 
