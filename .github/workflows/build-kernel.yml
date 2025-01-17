@@ -1,7 +1,7 @@
 name: Build Kernel
 
 on:
-  push:
+  workflow_dispatch:
 
 jobs:
   build-kernel:
@@ -33,7 +33,7 @@ jobs:
           make ARCH=arm64 LOCALVERSION=-opensources-rk3588 CROSS_COMPILE=aarch64-none-linux-gnu- Image -j$(nproc)
 
       - name: Upload Image as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: kernel-image
           path: linux-orangepi/arch/arm64/boot/Image
