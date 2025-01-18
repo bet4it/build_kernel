@@ -15,9 +15,9 @@ jobs:
       - name: Build
         uses: dabao1955/kernel_build_action@main
         with:
-          kernel-url: https://github.com/bet4it/linux-orangepi
-          kernel-branch: orange-pi-5.10-rk3588
-          config: linux_opsrc_rk3588_defconfig
+          kernel-url: https://github.com/torvalds/linux
+          kernel-branch: master
+          config: defconfig
           arch: arm64
           other-gcc64-url: https://sources.buildroot.net/toolchain-external-arm-aarch64/gcc-arm-11.2-2022.02-x86_64-aarch64-none-linux-gnu.tar.xz
           other-gcc32-url: https://github.com/armbian/mirror/releases/download/_toolchain/gcc-arm-11.2-2022.02-x86_64-arm-none-linux-gnueabihf.tar.xz
